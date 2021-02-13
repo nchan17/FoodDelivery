@@ -61,16 +61,6 @@ footer{
   color: black;
 }
 
-@media screen and (max-width: 1038px) {
-    .navbar a  {
-        clear: both;
-        display: block;
-        width: 98%;
-        margin: 4px 1%;
-        padding: 16px 2px;
-    }
-}
-
 .one-fifth-table {
   column-count: 1;
 }
@@ -99,8 +89,46 @@ footer{
     margin-right: 5px;
 }
 
-@media (min-width: 1000px) {
+
+@media (max-width: 769px) {
+    .navbar a {
+        font-size:50px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .navbar a {
+        font-size:3vw;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1216px) {
+    
+}
+
+@media (min-width: 1216px){
+    
+}
+
+
+@media (min-width: 1024px) {
     .one-fifth-table {
       column-count: 5;
     }
+    .navbar a {
+        font-size:17px;
+    }
 }
+
+@media (max-width: 1024px) {
+    .navbar a  {
+        clear: both;
+        display: block;
+        width: 98%;
+        margin: 4px 1%;
+        padding: 16px 2px;
+    }
+}
+
+
+
