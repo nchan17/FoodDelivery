@@ -61,7 +61,7 @@ footer{
   color: black;
 }
 
-@media screen and (max-width: 1038px) {
+@media screen and (max-width: 1000px) {
     .navbar a  {
         clear: both;
         display: block;
@@ -104,3 +104,35 @@ footer{
       column-count: 5;
     }
 }
+
+@media (min-width: 1000px) {
+    /*body {
+        font-size:2vw;
+    }*/
+
+    .navbar a {
+        font-size:17px;
+    }
+}
+
+@media (max-width: 1000px) and (min-width: 700px) {
+    /*body {
+        font-size:2vw;
+    }*/
+
+    .navbar a {
+        font-size:3vw;
+    }
+}
+
+@media (max-width: 600px) {
+    /*body {
+        font-size:2vw;
+    }*/
+
+    .navbar a {
+        font-size:4vw;
+    }
+}
+
+
