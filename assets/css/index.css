@@ -1,10 +1,6 @@
 #container {
 	margin: 0 auto; 
-	width: 90%;
-	padding: 40px;
-	border-width: 5px;
-	border-style: solid;
-	border-color: lime;
+	width: 100%;
 }
 .side-menu{
 	width:25%; 
