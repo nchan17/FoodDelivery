@@ -39,7 +39,7 @@ function loadCurrentWeather(data){
         <div style="float: left; width: 130px;">
         <div style="display: block; clear: left;">
             <div style="float: left;" title="Titel">
-                <img height="45" width="45" style="border: medium none; width: 45px; height: 45px; background: url(&quot;http://openweathermap.org/img/w/${data.weather[0].icon}.png&quot;) repeat scroll 0% 0% transparent;" alt="title" src="http://openweathermap.org/images/transparent.png"/>
+                <img height="45" width="45" style="border: medium none; width: 45px; height: 45px; background: url(&quot;https://openweathermap.org/img/w/${data.weather[0].icon}.png&quot;) repeat scroll 0% 0% transparent;" alt="title" src="http://openweathermap.org/images/transparent.png"/>
             </div>
             <div style="float: left;">
                 <div style="display: block; clear: left; font-size: medium; font-weight: bold; padding: 0pt 3pt;" title="Current Temperature">${data.main.temp} &deg;C</div>
@@ -60,12 +60,44 @@ function loadCurrentWeather(data){
 }
 
 function loadForecast(data){
-  containerElement.innerHTML = "forecast";
+  resultHTML = '<div class="col-container">';
+
+  for (i = 0; i < 5; i++) {
+    elem = data.list[i];
+    resultHTML+=`<div class="col-fifth">`;
+    resultHTML+=`
+      <div id = "container" style="clear: left; "/>
+        <div style="font-size: medium; font-weight: bold; margin-bottom: 0px;">${data.city.name}</div>
+            <div style="float: left; width: 130px;">
+            <div style="display: block; clear: left;">
+                <div style="float: left;" title="Titel">
+                    <img height="45" width="45" style="border: medium none; width: 45px; height: 45px; background: url(&quot;https://openweathermap.org/img/w/${elem.weather[0].icon}.png&quot;) repeat scroll 0% 0% transparent;" alt="title" src="http://openweathermap.org/images/transparent.png"/>
+                </div>
+                <div style="float: left;">
+                    <div style="display: block; clear: left; font-size: medium; font-weight: bold; padding: 0pt 3pt;" title="Current Temperature">${elem.main.temp} &deg;C</div>
+                    <div style="display: block; width: 85px; overflow: visible;"></div>
+                </div>
+            </div>
+            <div style="display: block; clear: left; font-size: small;">Clouds: ${elem.clouds.all}%</div>
+            <div style="display: block; clear: left; color: gray; font-size: x-small;" >Humidity: ${elem.main.humidity}%</div>
+            <div style="display: block; clear: left; color: gray; font-size: x-small;" >Wind: ${elem.wind.speed} m/s</div>
+            <div style="display: block; clear: left; color: gray; font-size: x-small;" >Pressure: ${elem.main.pressure}hpa</div>
+            </div>
+            <div style="display: block; clear: left; color: gray; font-size: x-small;">
+            
+        </div>
+      </div>
+      `;
+
+    resultHTML+=`</div>`;
+  }
+  
+  resultHTML += `</div>`;
+  containerElement.innerHTML = resultHTML;
   console.log(data);
 }
 
 function loadAir(data){
-  containerElement.innerHTML = "air";
   console.log(data);
 }
 
@@ -109,8 +141,8 @@ window.addEventListener('load', handleRouting);
 window.addEventListener('hashchange', handleRouting);
 
 let getDataFromApi = function(endpoint) {
-  // let baseUrl = 'http://api.openweathermap.org/data/2.5/';
-  let baseUrl = 'https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/';
+  let baseUrl = 'http://api.openweathermap.org/data/2.5/';
+  // let baseUrl = 'https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/';
   let key = '&appid=cbdd233385e363394315c521d7b568d9'
   let city = '?q=Tbilisi'
   let units = '&units=metric'

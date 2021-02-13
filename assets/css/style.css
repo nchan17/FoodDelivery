@@ -82,16 +82,40 @@ footer{
     border: 1px solid #e7e7e7;
     margin: 0 auto;
     height: auto;
-    margin-left: 5px;
-    margin-right: 5px;
+    column-fill: auto;
 }
 
 .one-fifth-table {
   column-count: 1;
+  column-gap: 5px;
 }
 
 .one-third-table {
-  column-count: 1;
+    column-count: 1;
+    column-fill: auto;
+    break-after: auto;
+    column-gap: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.col-container {
+  display: table;
+  width: 100%;
+}
+.col-fifth {
+  display: table-cell;
+  padding: 10px;
+  width: 20%;
+  border: 2px solid blue;
+  border-radius: 8px;
+}
+
+.round-border {
+  border: 2px solid red;
+  border-radius: 8px;
 }
 
 
@@ -118,10 +142,10 @@ footer{
 
 @media (min-width: 1024px) {
     .one-third-table {
-      column-count: 3;
+        column-count: 3;
     }
     .one-fifth-table {
-      column-count: 5;
+        column-count: 5;
     }
     .navbar a {
         font-size:17px;
@@ -136,7 +160,16 @@ footer{
         margin: 4px 1%;
         padding: 16px 2px;
     }
+    .col-fifth { 
+        display: block;
+        width: 100%;
+    }
+
 }
+
+
+
+
 
 
 
