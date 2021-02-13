@@ -1,0 +1,110 @@
+#container {
+	margin: 0 auto; 
+	width: 90%;
+	padding: 40px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: lime;
+}
+.side-menu{
+	width:25%; 
+	float:left;
+	margin-top: 20px;
+	background-color: PeachPuff;
+}
+.main-body{
+	width:100%; 
+	margin-top: 20px;
+	float:right; 
+	text-align: center;
+	background-color: DarkKhaki;
+}
+footer{
+	text-align:right;
+	color:grey;
+}
+
+
+[class^="menu-icon"] {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  top: 15px;
+  margin-right: 10px;
+  fill: #fff;
+}
+
+.menu-icon-about {
+  right: 5px;
+}
+
+.fa-home:before{content:"\f015"}
+
+.navbar {
+    overflow: hidden;
+    background-color: #333;
+    text-align:center;
+    width: 100%;
+}
+
+.navbar a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 17px;
+    margin: 4px 0.5%;
+    padding: 12px 0px;
+    width: 19%;
+    text-align: center;
+}
+
+.navbar a:hover {
+  background: #ddd;
+  color: black;
+}
+
+@media screen and (max-width: 1038px) {
+    .navbar a  {
+        clear: both;
+        display: block;
+        width: 98%;
+        margin: 4px 1%;
+        padding: 16px 2px;
+    }
+}
+
+.one-fifth-table {
+  column-count: 1;
+}
+.info-icon{
+    text-align: center;
+}
+
+.info-icon i{
+    font-size: 60px;
+    margin-top: 10px;
+    color: #4aa1f3;
+}
+
+#colDesc h3{
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+#colDesc{
+    border: 1px solid #e7e7e7;
+    margin: 0 auto;
+    height: auto;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+@media (min-width: 1000px) {
+    .one-fifth-table {
+      column-count: 5;
+    }
+}
