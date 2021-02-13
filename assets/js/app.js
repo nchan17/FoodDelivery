@@ -2,7 +2,47 @@ let loadingElement = document.getElementById('loading');
 let containerElement = document.getElementById('js-container');
 
 function loadAbout(data){
-  containerElement.innerHTML = "about";
+  containerElement.innerHTML = `<div class="container" style="margin-bottom: 70px;">
+                    <div class="row">
+                        <div>
+                            <h2 class="text-center text-primary" style="margin-top:40px;">Welcome To Weather Map</h2>
+                            <p class="text-center" id="welcome-paragraph">about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us about us 
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="one-fifth-table">
+                        <div id="colDesc">
+                            <div class="info-icon"><i class="fa fa-sun-o"></i></div>
+                            <h3 class="text-center">Weather API</h3>
+                            <p class="text-center">Use openweathermap API to get weather information of any city.</p>
+                        </div>
+                        <div id="colDesc">
+                            <div class="info-icon"><i class="fa fa-sun-o"></i></div>
+                            <h3 class="text-center">Weather API</h3>
+                            <p class="text-center">Use openweathermap API to get weather information of any city.</p>
+                        </div>
+
+                        <div id="colDesc">
+                            <div class="info-icon"><i class="fa fa-sun-o"></i></div>
+                            <h3 class="text-center">Weather API</h3>
+                            <p class="text-center">Use openweathermap API to get weather information of any city.</p>
+                        </div>
+
+                        <div id="colDesc">
+                            <div class="info-icon"><i class="fa fa-sun-o"></i></div>
+                            <h3 class="text-center">Weather API</h3>
+                            <p class="text-center">Use openweathermap API to get weather information of any city.</p>
+                        </div>
+
+                        <div id="colDesc">
+                            <div class="info-icon"><i class="fa fa-sun-o"></i></div>
+                            <h3 class="text-center">Weather API</h3>
+                            <p class="text-center">Use openweathermap API to get weather information of any city.</p>
+                        </div>
+                    </div>
+
+                </div>`;
   console.log(data);
 }
 function loadCurrentWeather(data){
@@ -25,7 +65,6 @@ function loadAir(data){
 let routes = {
   'about': () => {
     loadAbout()
-    containerElement.innerHTML = "<div> <p>something about this site </p> </div>";
   },
   'current': () => {
     getDataFromApi('weather').then((data) => {
