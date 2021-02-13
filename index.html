@@ -4,17 +4,31 @@
         <head>
           <link rel="icon" href="assets/images/sun.png" type="image/gif" sizes="16x16">
           <link rel="stylesheet" href="assets/css/style.css">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
         </head>
         
     </head>
     <body>
     	<div id = "container">
-            <div class="navbar" id="navcol">
-                <a class="menu-resp-text" href="#about">Weather App</a></li>  
+            <script>
+            function myFunction() {
+              var x = document.getElementById("myTopnav");
+              if (x.className === "topnav") {
+                x.className += " responsive";
+              } else {
+                x.className = "topnav";
+              }
+            }
+            </script>
+            <div class="topnav" id="myTopnav">
+                <a href="#about" class="active">Weather App</a>
                 <a href="#current">Current</a>
                 <a href="#forecast">Forecast</a>
                 <a href="#air">Air Pollution</a>
-                <a href="https://www.openweathermap.org" target="_blank">Original API</a>     
+                <a href="https://www.openweathermap.org" target="_blank">Original API</a>
+                <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                    <img style="width:20px; height:20px;"src ="./assets/images/square.png"/>
+                </a>
             </div>
                 <main id="js-container" style="margin-bottom: 70px;"></main>
                 <script src="assets/js/app.js"></script>
