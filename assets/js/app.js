@@ -43,8 +43,8 @@ function loadAbout(data){
                     </div>
 
                 </div>`;
-  console.log(data);
 }
+
 function loadCurrentWeather(data){
   containerElement.innerHTML = "current";
   console.log(data);
