@@ -97,7 +97,14 @@ function loadForecast(data){
   console.log(data);
 }
 
+
 function loadAir(data){
+  let resultHTML = `
+  <div id = "container" style="clear: left; "/>
+    <p> Air Quality Index ${data.list[0].main.aqi} </p>
+  </div>
+  `
+  containerElement.innerHTML = resultHTML;
   console.log(data);
 }
 
@@ -108,20 +115,17 @@ let routes = {
     loadAbout()
   },
   'current': () => {
-    getDataFromApi('weather').then((data) => {
-      loadCurrentWeather(data);
-    });
+    callCurrentWeatherAPI('Tbilisi', 'metric');
+    // getDataFromApi('weather').then((data) => {
+    //   loadCurrentWeather(data);
+    // });
 
   },
   'forecast': () => {
-    getDataFromApi('forecast').then((data) => {
-      loadForecast(data);
-    });
+    callForecastAPI('Tbilisi', 'metric');
   },
   'air': () => {
-    getDataFromApi('weather').then((data) => {
-      loadAir(data);
-    });
+    callAirAPI('Tbilisi', 'metric');
   }
 };
 
@@ -140,16 +144,84 @@ let handleRouting = () => {
 window.addEventListener('load', handleRouting);
 window.addEventListener('hashchange', handleRouting);
 
-let getDataFromApi = function(endpoint) {
-  // let baseUrl = 'http://api.openweathermap.org/data/2.5/';
-  let baseUrl = 'https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/';
-  let key = '&appid=cbdd233385e363394315c521d7b568d9'
-  let city = '?q=Tbilisi'
-  let units = '&units=metric'
+// let getDataFromApi = function(endpoint) {
+//   // let baseUrl = 'https://api.openweathermap.org/data/2.5/';
+//   let baseUrl = 'https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/';
+//   let key = '&appid=cbdd233385e363394315c521d7b568d9'
+//   let city = '?q=Tbilisi'
+//   let units = '&units=metric'
 
-  return fetch(baseUrl + endpoint + city + units + key)
-    .then((response) => {
-      return response;
-    })
-    .then(response => response.json());
-};
+//   return fetch(baseUrl + endpoint + city + units + key)
+//     .then((response) => {
+//       return response;
+//     })
+//     .then(response => response.json());
+// };
+
+
+function callCurrentWeatherAPI(city, unit){
+  // let baseUrl = 'https://api.openweathermap.org/data/2.5/weather?q=';
+  let baseUrl = 'https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/weather?q=';
+  let key = '&appid=cbdd233385e363394315c521d7b568d9';
+  let units = '&units=' + unit;
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.overrideMimeType("json", true);
+  xmlhttp.open("GET", baseUrl + city + units + key, true);
+  xmlhttp.send();
+
+  xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var myArr = JSON.parse(this.responseText);
+      loadCurrentWeather(myArr);
+    }
+  };
+}
+
+
+function callForecastAPI(city, unit){
+  // let baseUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=';
+  let baseUrl = 'https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/forecast?q=';
+  let key = '&appid=cbdd233385e363394315c521d7b568d9';
+  let units = '&units=' + unit;
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.overrideMimeType("json", true);
+  xmlhttp.open("GET", baseUrl + city + units + key, true);
+  xmlhttp.send();
+
+  xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var myArr = JSON.parse(this.responseText);
+      loadForecast(myArr);
+    }
+  };
+}
+
+
+function callAirAPI(city){
+  // let baseUrl = 'https://api.openweathermap.org/data/2.5/weather?q=';
+  let baseUrl = 'https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/weather?q=';
+  let key = '&appid=cbdd233385e363394315c521d7b568d9';
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.overrideMimeType("json", true);
+  xmlhttp.open("GET", baseUrl + city + key, true);
+  xmlhttp.send();
+
+  xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var data = JSON.parse(this.responseText);
+      // baseUrl = 'https://api.openweathermap.org/data/2.5/air_pollution?lat=';
+      baseUrl = 'https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/air_pollution?lat=';
+      var xmlhttpair = new XMLHttpRequest();
+      xmlhttpair.overrideMimeType("json", true);
+      xmlhttpair.open("GET", baseUrl + data.coord.lat + '&lon=' + data.coord.lon + key, true);
+      xmlhttpair.send();
+      xmlhttpair.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          var myArr = JSON.parse(this.responseText);
+          loadAir(myArr);
+        }
+      };
+    }
+  };
+}
+
