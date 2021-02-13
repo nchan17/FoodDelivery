@@ -141,8 +141,8 @@ window.addEventListener('load', handleRouting);
 window.addEventListener('hashchange', handleRouting);
 
 let getDataFromApi = function(endpoint) {
-  let baseUrl = 'http://api.openweathermap.org/data/2.5/';
-  // let baseUrl = 'https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/';
+  // let baseUrl = 'http://api.openweathermap.org/data/2.5/';
+  let baseUrl = 'https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/';
   let key = '&appid=cbdd233385e363394315c521d7b568d9'
   let city = '?q=Tbilisi'
   let units = '&units=metric'
