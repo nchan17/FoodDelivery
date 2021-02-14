@@ -20,7 +20,6 @@ function UnitConsts() {
 
   this.speed['imperial'] = "mph";
   this.temp['imperial'] = "&#176F";
-  console.log(this.speed);
 }
  UnitConsts();
 
@@ -242,7 +241,15 @@ let routes = {
 };
 
 
-
+function isEmptyOrNull(str){
+  if (str == null){
+    return true;
+  }
+  if(str == ""){
+    return true;
+  }
+  return false;
+}
 
 
 let defaultRoute = 'posts';
@@ -255,11 +262,10 @@ let handleRouting = () => {
     currentUri = currentUri.substring(1);
     let urlParts = currentUri.split("/");
     currentUri = urlParts[0];
-
-    if(urlParts.length == 2) {
+    if(!isEmptyOrNull(urlParts[1]) && isEmptyOrNull(urlParts[2])) {
       currentUnit = urlParts[1];
       // localStorage.setItem("currentUnit", currentUnit);
-    } else if(urlParts.length >= 3) {
+    } else if(!isEmptyOrNull(urlParts[1]) && !isEmptyOrNull(urlParts[2])) {
       currentUnit = urlParts[1];
       currentCity = urlParts[2]; 
       // localStorage.setItem("currentUnit", currentUnit);
