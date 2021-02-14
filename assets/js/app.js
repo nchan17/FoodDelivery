@@ -8,6 +8,9 @@ let rootUrl = 'https://api.openweathermap.org/data/2.5/';
 let baseCity = 'Tbilisi'
 let baseUnit = 'metric'
 
+var currentCity = null;
+var currentUnit = null;
+
 
 function UnitConsts() { 
   this.speed = [];
@@ -246,8 +249,8 @@ let defaultRoute = 'posts';
 
 let handleRouting = () => {
   let currentUri = window.location.hash || false;
-  let currentCity = localStorage.getItem("currentCity");
-  let currentUnit = localStorage.getItem("currentUnit");
+  currentCity = localStorage.getItem("currentCity");
+  currentUnit = localStorage.getItem("currentUnit");
   if (currentUri !== false) {
     currentUri = currentUri.substring(1);
     let urlParts = currentUri.split("/");
@@ -255,24 +258,17 @@ let handleRouting = () => {
 
     if(urlParts.length == 2) {
       currentUnit = urlParts[1];
-      localStorage.setItem("currentUnit", currentUnit);
+      // localStorage.setItem("currentUnit", currentUnit);
     } else if(urlParts.length >= 3) {
       currentUnit = urlParts[1];
       currentCity = urlParts[2]; 
-      localStorage.setItem("currentUnit", currentUnit);
-      localStorage.setItem("currentCity", currentCity);
+      // localStorage.setItem("currentUnit", currentUnit);
+      // localStorage.setItem("currentCity", currentCity);
     }
   }
   routes[currentUri || 'about'](currentCity||baseCity, currentUnit||baseUnit);
 };
 
-// let handleRouting = () => {
-//   let currentUri = window.location.hash || false;
-//   if (currentUri !== false) {
-//     currentUri = currentUri.substring(1);
-//   }
-//   routes[currentUri || 'about']();
-// };
 
 window.addEventListener('load', handleRouting);
 window.addEventListener('hashchange', handleRouting);
@@ -299,6 +295,8 @@ function callCurrentWeatherAPI(city, unit){
     if (this.readyState == 4 && this.status == 200) {
       var myArr = JSON.parse(this.responseText);
       loadCurrentWeather(myArr, unit||baseUnit);
+      localStorage.setItem("currentUnit", currentUnit||baseUnit);
+      localStorage.setItem("currentCity", currentCity||baseCity);
     }
   };
 }
