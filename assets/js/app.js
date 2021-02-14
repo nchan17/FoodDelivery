@@ -255,6 +255,7 @@ function isEmptyOrNull(str){
 let defaultRoute = 'posts';
 
 let handleRouting = () => {
+  containerElement.innerHTML = `<div class="loader"></div>`;
   let currentUri = window.location.hash || false;
   currentCity = localStorage.getItem("currentCity");
   currentUnit = localStorage.getItem("currentUnit");
