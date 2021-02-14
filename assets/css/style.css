@@ -339,6 +339,9 @@ table th {
   letter-spacing: .1em;
   text-transform: uppercase;
 }
+table thead {
+    background-color: #adc2eb;
+}
 
 @media screen and (max-width: 769px) {
   table {
