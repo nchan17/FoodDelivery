@@ -13,8 +13,8 @@ function loadAbout(data){
   containerElement.innerHTML = `
     <div class="row">
       <div>
-          <h2 class="text-center text-primary" style="margin-top:40px;">Welcome To Weather Map</h2>
-          <p class="text-center" id="welcome-paragraph">OpenWeather is a team of IT experts and data scientists that has been practising deep weather data science since 2014. For each point on the globe, OpenWeather provides historical, current and forecasted weather data via light-speed APIs. Headquarters in London, UK.
+          <h2 class="text-center text-primary" style="margin-top:40px; text-align:center">Welcome To Weather Map</h2>
+          <p class="text-center" id="welcome-paragraph" style="text-align:center">OpenWeather is a team of IT experts and data scientists that has been practising deep weather data science since 2014. For each point on the globe, OpenWeather provides historical, current and forecasted weather data via light-speed APIs. Headquarters in London, UK.
           </p>
       </div>
     </div>
@@ -84,39 +84,43 @@ function loadCurrentWeather(data){
 }
 
 function loadForecast(data){
-  resultHTML = '<div class="col-container">';
-
-  for (i = 0; i < 5; i++) {
-    elem = data.list[i];
-    resultHTML+=`<div class="col-fifth">`;
+  let sortedForecast = getSortedForecast(data.list);
+  let resultHTML = '';
+  for (i = 0; i < sortedForecast.length; i++) {
+    elem = sortedForecast[i];
     resultHTML+=`
-      <div id = "container" style="clear: left; "/>
-        <div style="font-size: medium; font-weight: bold; margin-bottom: 0px;">${data.city.name}</div>
-            <div style="float: left; width: 130px;">
-            <div style="display: block; clear: left;">
-                <div style="float: left;" title="Titel">
-                    <img height="45" width="45" style="border: medium none; width: 45px; height: 45px; background: url(&quot;https://openweathermap.org/img/w/${elem.weather[0].icon}.png&quot;) repeat scroll 0% 0% transparent;" alt="title" src="https://openweathermap.org/images/transparent.png"/>
-                </div>
-                <div style="float: left;">
-                    <div style="display: block; clear: left; font-size: medium; font-weight: bold; padding: 0pt 3pt;" title="Current Temperature">${elem.main.temp} &deg;C</div>
-                    <div style="display: block; width: 85px; overflow: visible;"></div>
-                </div>
-            </div>
-            <div style="display: block; clear: left; font-size: small;">Clouds: ${elem.clouds.all}%</div>
-            <div style="display: block; clear: left; color: gray; font-size: x-small;" >Humidity: ${elem.main.humidity}%</div>
-            <div style="display: block; clear: left; color: gray; font-size: x-small;" >Wind: ${elem.wind.speed} m/s</div>
-            <div style="display: block; clear: left; color: gray; font-size: x-small;" >Pressure: ${elem.main.pressure}hpa</div>
-            </div>
-            <div style="display: block; clear: left; color: gray; font-size: x-small;">
-            
+      <div class="widget">
+        <div class="left-panel panel">
+            <table>
+              <caption>${elem['weekDay']}</caption>
+              <thead>
+                <tr>
+                  <th scope="col">time</th>
+                  <th scope="col">description</th>
+                  <th scope="col">visual</th>
+                  <th scope="col">temp</th>
+                </tr>
+              </thead>
+              `;
+              for(j=0; j < elem['dayForecast'].length; j++){
+                let singleWeather = elem['dayForecast'][j];
+                resultHTML+=`
+                <tbody>
+                  <tr>
+                    <td data-label="time">${timeConverter(singleWeather.dt)['hour']}</td>
+                    <td data-label="desc">${singleWeather.weather[0].description}</td>
+                    <td data-label="icon"><img src="https://openweathermap.org/img/w/${singleWeather.weather[0].icon}.png"></td>
+                    <td data-label="temp">${parseInt(singleWeather.main.temp, 10)}&#176;C</td>
+                  </tr>
+                </tbody>`;
+              }
+    resultHTML+=`         
+            </table>
         </div>
-      </div>
+    </div>
       `;
-
-    resultHTML+=`</div>`;
   }
   
-  resultHTML += `</div>`;
   containerElement.innerHTML = resultHTML;
   console.log(data);
 }
@@ -149,6 +153,12 @@ function loadAir(data){
       break;
 
   }
+  var mycity = localStorage.getItem("currentCity");
+  console.log(baseCity);
+  console.log(mycity);
+  if(mycity == null || mycity==""){
+    mycity = baseCity;
+  }
   let resultHTML = `
   <div class="widget">
                 <div class="left-panel panel">
@@ -156,7 +166,7 @@ function loadAir(data){
                         <img src="${icon}">
                     </div>
                     <table>
-                      <caption>${localStorage.getItem("currentCity")} ${desc}</caption>
+                      <caption>${mycity} ${desc}</caption>
                       <thead>
                         <tr>
                           <th scope="CO">Carbon monoxide</th>
@@ -340,4 +350,45 @@ function timeConverter(UNIX_timestamp){
 
   return mydate;
 }
+
+
+function getSortedForecast(forcastList){                
+    var fullForecast = [];
+    for(i = 0; i <forcastList.length; i++){
+      let forecast = forcastList[i];
+        let day = timeConverter(forecast.dt)['weekday'];
+        if (i == 0) {
+            var temp = [];
+            var temp3 = [];
+            temp3.push(forecast);
+            temp['dayForecast'] = temp3;
+            temp['weekDay'] = day;
+            fullForecast.push(temp);
+            console.log(fullForecast[0]);
+        } else {
+            let lastIndex = fullForecast.length - 1;
+            console.log(i);
+            console.log(fullForecast[lastIndex]);
+            if (fullForecast[lastIndex]['weekDay'] == day){
+                fullForecast[lastIndex]['dayForecast'].push(forecast)
+            } else {
+              var temp2 = [];
+              var temp4 = [];
+              temp4.push(forecast);
+              temp2['dayForecast'] = temp4;
+              temp2['weekDay'] = day;
+              fullForecast.push(temp2);
+
+              // var temp2 = [];
+              // temp2['dayForecast'] = forecast;
+              // temp2['weekDay'] = day;
+              // fullForecast.push(temp2);
+            }
+        }
+        
+    }
+    console.log(fullForecast);
+    return fullForecast;
+}
+
 
