@@ -10,24 +10,13 @@
     </head>
     <body>
     	<div id = "container">
-            <script>
-                function myFunction() {
-                  var x = document.getElementById("myTopnav");
-                  if (x.className === "topnav") {
-                    x.className += " responsive";
-                  } else {
-                    x.className = "topnav";
-                  }
-                }
-                
-            </script>
             <div class="topnav" id="myTopnav">
                 <a href="#about">Weather App</a>
                 <a href="#current">Current</a>
                 <a href="#forecast">Forecast</a>
                 <a href="#air">Air Pollution</a>
                 <a href="https://www.openweathermap.org" target="_blank">Original API</a>
-                <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <a href="javascript:void(0);" class="icon" onclick="handleBurgerManu()">
                     <img style="width:20px; height:20px;"src ="./assets/images/square.png"/>
                 </a>
             </div>
@@ -39,13 +28,17 @@
                             <option value="imperial">imperial</option>
                         </select>
                         <input type="text" placeholder="Search.." name="ftext">
-                        <input type="submit" value="Search">
-                        
+                        <input type="submit" value="Search">  
                     </form>
                 </div>
             </div>
                 <main id="js-container" style="margin-bottom: 70px;"></main>
+                <script src="assets/js/math.js"></script>
                 <script src="assets/js/app.js"></script>
+                <script src="assets/js/current.js"></script>
+                <script src="assets/js/about.js"></script>
+                <script src="assets/js/forecast.js"></script>
+                <script src="assets/js/air.js"></script>
             </div>
 
             <div style="clear: left;"/>
