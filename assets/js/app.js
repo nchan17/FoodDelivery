@@ -9,6 +9,19 @@ let baseCity = 'Tbilisi'
 let baseUnit = 'metric'
 
 
+function UnitConsts() { 
+  this.speed = [];
+  this.temp = [];
+  this.speed['metric'] = "mps";
+  this.temp['metric'] = "&#176C";
+
+  this.speed['imperial'] = "mph";
+  this.temp['imperial'] = "&#176F";
+  console.log(this.speed);
+}
+ UnitConsts();
+
+
 function loadAbout(data){
   containerElement.innerHTML = `
     <div class="row">
@@ -40,7 +53,7 @@ function loadAbout(data){
   `;
 }
 
-function loadCurrentWeather(data){
+function loadCurrentWeather(data, unit){
   let dateInfo = timeConverter(data.dt);
   containerElement.innerHTML = `
       <div class="widget">
@@ -53,7 +66,7 @@ function loadCurrentWeather(data){
             </div>
             <div class="temp">
                 <img src="https://openweathermap.org/img/w/${data.weather[0].icon}.png" alt="" width="100">
-               ${parseInt(data.main.temp, 10)}&deg;
+               ${parseInt(data.main.temp, 10)} ${this.temp[unit]}
             </div>
             <table>
               <caption>${data.weather[0].description}</caption>
@@ -68,11 +81,11 @@ function loadCurrentWeather(data){
               </thead>
               <tbody>
                 <tr>
-                  <td data-label="Cloudiness">${data.clouds.all}%</td>
-                  <td data-label="Humidity">${data.main.humidity}mm</td>
-                  <td data-label="WindSpeed">${data.wind.speed}kmh</td>
-                  <td data-label="WindDirection">${data.wind.deg}&#176</td>
-                  <td data-label="Pressure">${data.main.pressure}hpa</td>
+                  <td data-label="Cloudiness">${data.clouds.all} %</td>
+                  <td data-label="Humidity">${data.main.humidity} %</td>
+                  <td data-label="WindSpeed">${data.wind.speed} ${this.speed[unit]}</td>
+                  <td data-label="WindDirection">${data.wind.deg} &#176</td>
+                  <td data-label="Pressure">${data.main.pressure} hPa</td>
                 </tr>
               </tbody>
             </table>
@@ -80,12 +93,16 @@ function loadCurrentWeather(data){
     </div>
 
   `;
-  console.log(data);
 }
 
-function loadForecast(data){
+function loadForecast(data, unit){
   let sortedForecast = getSortedForecast(data.list);
-  let resultHTML = '';
+  let resultHTML = `
+  <div class="widget" style="width:90%; text-align: center; color: white">
+    <div>
+      <h1>${data.city.name}</h1>
+    </div>
+  </div>`;
   for (i = 0; i < sortedForecast.length; i++) {
     elem = sortedForecast[i];
     resultHTML+=`
@@ -110,7 +127,7 @@ function loadForecast(data){
                     <td data-label="time">${timeConverter(singleWeather.dt)['hour']}</td>
                     <td data-label="desc">${singleWeather.weather[0].description}</td>
                     <td data-label="visual"><img src="https://openweathermap.org/img/w/${singleWeather.weather[0].icon}.png"></td>
-                    <td data-label="temp">${parseInt(singleWeather.main.temp, 10)}&#176;C</td>
+                    <td data-label="temp">${parseInt(singleWeather.main.temp, 10)} ${this.temp[unit]}</td>
                   </tr>
                 </tbody>`;
               }
@@ -122,7 +139,6 @@ function loadForecast(data){
   }
   
   containerElement.innerHTML = resultHTML;
-  console.log(data);
 }
 
 
@@ -154,8 +170,6 @@ function loadAir(data){
 
   }
   var mycity = localStorage.getItem("currentCity");
-  console.log(baseCity);
-  console.log(mycity);
   if(mycity == null || mycity==""){
     mycity = baseCity;
   }
@@ -206,7 +220,6 @@ function loadAir(data){
             </div>
   `
   containerElement.innerHTML = resultHTML;
-  console.log(data);
 }
 
 
@@ -285,7 +298,7 @@ function callCurrentWeatherAPI(city, unit){
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       var myArr = JSON.parse(this.responseText);
-      loadCurrentWeather(myArr);
+      loadCurrentWeather(myArr, unit);
     }
   };
 }
@@ -302,7 +315,7 @@ function callForecastAPI(city, unit){
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       var myArr = JSON.parse(this.responseText);
-      loadForecast(myArr);
+      loadForecast(myArr, unit);
     }
   };
 }
@@ -364,11 +377,8 @@ function getSortedForecast(forcastList){
             temp['dayForecast'] = temp3;
             temp['weekDay'] = day;
             fullForecast.push(temp);
-            console.log(fullForecast[0]);
         } else {
             let lastIndex = fullForecast.length - 1;
-            console.log(i);
-            console.log(fullForecast[lastIndex]);
             if (fullForecast[lastIndex]['weekDay'] == day){
                 fullForecast[lastIndex]['dayForecast'].push(forecast)
             } else {
@@ -378,16 +388,10 @@ function getSortedForecast(forcastList){
               temp2['dayForecast'] = temp4;
               temp2['weekDay'] = day;
               fullForecast.push(temp2);
-
-              // var temp2 = [];
-              // temp2['dayForecast'] = forecast;
-              // temp2['weekDay'] = day;
-              // fullForecast.push(temp2);
             }
         }
         
     }
-    console.log(fullForecast);
     return fullForecast;
 }
 
