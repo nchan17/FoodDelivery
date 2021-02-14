@@ -109,7 +109,7 @@ function loadForecast(data){
                   <tr>
                     <td data-label="time">${timeConverter(singleWeather.dt)['hour']}</td>
                     <td data-label="desc">${singleWeather.weather[0].description}</td>
-                    <td data-label="icon"><img src="https://openweathermap.org/img/w/${singleWeather.weather[0].icon}.png"></td>
+                    <td data-label="visual"><img src="https://openweathermap.org/img/w/${singleWeather.weather[0].icon}.png"></td>
                     <td data-label="temp">${parseInt(singleWeather.main.temp, 10)}&#176;C</td>
                   </tr>
                 </tbody>`;
@@ -129,7 +129,7 @@ function loadForecast(data){
 function loadAir(data){
   let baseData = data.list[0].components
   var icon = "./assets/images/";
-  var desc = "Air Quality: ";
+  var desc = " - Air Quality is ";
   switch (data.list[0].main.aqi){
     case 1: 
       icon += "shield.png";

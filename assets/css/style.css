@@ -311,6 +311,7 @@ table {
   border: 1px solid #ccc;
   border-collapse: collapse;
   margin: 0;
+  margin-bottom:10px;
   padding: 0;
   width: 100%;
   background-color: #d6e0f5;
@@ -325,7 +326,7 @@ table caption {
 }
 
 table tr {
-  border: 1px solid #ddd;
+  border: 1px solid #0a1429;
   padding: .35em;
 }
 
@@ -348,6 +349,9 @@ table thead {
   table {
     border: 0;
   }
+  div.widget{
+    width:90%;
+  }
 
   table caption {
     font-size: 1.3em;
@@ -365,13 +369,13 @@ table thead {
   }
   
   table tr {
-    border-bottom: 3px solid #ddd;
+    border-bottom: 1px solid #0a1429;
     display: block;
-    margin-bottom: .625em;
+    margin-bottom: 1px;
   }
   
   table td {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #0a1429;
     display: block;
     font-size: .8em;
     text-align: right;
