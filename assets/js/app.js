@@ -42,30 +42,6 @@ function loadAbout(data){
 
 function loadCurrentWeather(data){
   let dateInfo = timeConverter(data.dt);
-  // containerElement.innerHTML = `
-  // <div id = "container" style="clear: left; "/>
-  //   <div style="font-size: medium; font-weight: bold; margin-bottom: 0px;">${data.name}</div>
-  //       <div style="float: left; width: 130px;">
-  //       <div style="display: block; clear: left;">
-  //           <div style="float: left;" title="Titel">
-  //               <img height="45" width="45" style="border: medium none; width: 45px; height: 45px; background: url(&quot;https://openweathermap.org/img/w/${data.weather[0].icon}.png&quot;) repeat scroll 0% 0% transparent;" alt="title" src="https://openweathermap.org/images/transparent.png"/>
-  //           </div>
-  //           <div style="float: left;">
-  //               <div style="display: block; clear: left; font-size: medium; font-weight: bold; padding: 0pt 3pt;" title="Current Temperature">${data.main.temp} &deg;C</div>
-  //               <div style="display: block; width: 85px; overflow: visible;"></div>
-  //           </div>
-  //       </div>
-  //       <div style="display: block; clear: left; font-size: small;">Clouds: ${data.clouds.all}%</div>
-  //       <div style="display: block; clear: left; color: gray; font-size: x-small;" >Humidity: ${data.main.humidity}%</div>
-  //       <div style="display: block; clear: left; color: gray; font-size: x-small;" >Wind: ${data.wind.speed} m/s</div>
-  //       <div style="display: block; clear: left; color: gray; font-size: x-small;" >Pressure: ${data.main.pressure}hpa</div>
-  //       </div>
-  //       <div style="display: block; clear: left; color: gray; font-size: x-small;">
-        
-  //   </div>
-  // </div>
-  // `;
-
   containerElement.innerHTML = `
       <div class="widget">
         <div class="left-panel panel">
@@ -77,7 +53,7 @@ function loadCurrentWeather(data){
             </div>
             <div class="temp">
                 <img src="https://openweathermap.org/img/w/${data.weather[0].icon}.png" alt="" width="100">
-               ${data.main.temp}&deg;
+               ${parseInt(data.main.temp, 10)}&deg;
             </div>
             <table>
               <caption>${data.weather[0].description}</caption>
@@ -95,7 +71,7 @@ function loadCurrentWeather(data){
                   <td data-label="Cloudiness">${data.clouds.all}%</td>
                   <td data-label="Humidity">${data.main.humidity}mm</td>
                   <td data-label="WindSpeed">${data.wind.speed}kmh</td>
-                  <td data-label="WindDirection">${data.wind.deg}</td>
+                  <td data-label="WindDirection">${data.wind.deg}&#176</td>
                   <td data-label="Pressure">${data.main.pressure}hpa</td>
                 </tr>
               </tbody>

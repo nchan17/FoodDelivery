@@ -275,7 +275,6 @@ div.city
 {
   font-size: 21px;
   font-weight: bold;
-  text-transform: uppercase;
   padding-top: 5px;
   color: rgba(0,0,0,0.7);
 }
@@ -283,7 +282,7 @@ div.city
 
 div.temp
 {
-  font-size: 81px;
+  font-size: 70px;
   color: rgba(0,0,0,0.9);
   font-weight: 100;
 }
@@ -314,16 +313,17 @@ table {
   margin: 0;
   padding: 0;
   width: 100%;
+  background-color: #d6e0f5;
   table-layout: fixed;
 }
 
 table caption {
   font-size: 1.5em;
+  text-transform: capitalize;
   margin: .5em 0 .75em;
 }
 
 table tr {
-  background-color: #f8f8f8;
   border: 1px solid #ddd;
   padding: .35em;
 }
