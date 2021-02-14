@@ -72,14 +72,15 @@ footer{
   display: table;
   text-align: center;
   width: 100%;
-  border-spacing: 15px 15px
+  border-spacing: 15px 0px
 }
 .col-fifth {
   display: table-cell;
   padding: 10px;
   width: 20%;
   border: 2px solid blue;
-  border-radius: 8px;
+  border-radius: 20px;
+  margin-bottom: 15px;
 }
 
 .col-third {
@@ -88,7 +89,7 @@ footer{
   width: 30%;
   border: 2px solid blue;
   border-radius: 20px;
-  margin: 15px;
+  margin-bottom: 15px;
 }
 
 .round-border {
@@ -175,6 +176,9 @@ footer{
     }
 
 }
+
+
+
 
 
 

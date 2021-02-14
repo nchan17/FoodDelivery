@@ -30,6 +30,18 @@
                     <img style="width:20px; height:20px;"src ="./assets/images/square.png"/>
                 </a>
             </div>
+                <div id="search">
+                    <form name="myForm" onsubmit="searchCity(); return false;" method="post">
+                        <input type="text" name="ftext">
+                        <input type="submit" value="Search">
+                        <select name="funits">
+                            <option value="metric">metric</option>
+                            <option value="imperial">imperial</option>
+                        </select>
+                    </form>
+                </div>
+
+
                 <main id="js-container" style="margin-bottom: 70px;"></main>
                 <script src="assets/js/app.js"></script>
             </div>

@@ -5,6 +5,10 @@ let key = '&appid=cbdd233385e363394315c521d7b568d9';
 let rootUrl = 'https://api.openweathermap.org/data/2.5/';
 // rootUrl = 'https://cors-anywhere.herokuapp.com/' + rootUrl;
 
+let baseCity = 'Tbilisi'
+let baseUnit = 'metric'
+
+
 function loadAbout(data){
   containerElement.innerHTML = `
     <div class="row">
@@ -115,18 +119,20 @@ function loadAir(data){
 
 let routes = {
   'about': () => {
-    loadAbout()
+    loadAbout();
   },
-  'current': () => {
-    callCurrentWeatherAPI('Tbilisi', 'metric');
+  'current': (city, unit) => {
+    callCurrentWeatherAPI(city, unit);
   },
-  'forecast': () => {
-    callForecastAPI('Tbilisi', 'metric');
+  'forecast': (city, unit) => {
+    callForecastAPI(city, unit);
   },
-  'air': () => {
-    callAirAPI('Tbilisi', 'metric');
+  'air': (city, unit) => {
+    callAirAPI(city);
   }
 };
+
+
 
 
 
@@ -134,28 +140,44 @@ let defaultRoute = 'posts';
 
 let handleRouting = () => {
   let currentUri = window.location.hash || false;
+  let currentCity = localStorage.getItem("currentCity");
+  let currentUnit = localStorage.getItem("currentUnit");
   if (currentUri !== false) {
     currentUri = currentUri.substring(1);
+    let urlParts = currentUri.split("/");
+    currentUri = urlParts[0];
+
+    if(urlParts.length == 2) {
+      currentUnit = urlParts[1];
+      localStorage.setItem("currentUnit", currentUnit);
+    } else if(urlParts.length >= 3) {
+      currentUnit = urlParts[1];
+      currentCity = urlParts[2]; 
+      localStorage.setItem("currentUnit", currentUnit);
+      localStorage.setItem("currentCity", currentCity);
+    }
   }
-  routes[currentUri || 'about']();
+  routes[currentUri || 'about'](currentCity||baseCity, currentUnit||baseUnit);
 };
+
+// let handleRouting = () => {
+//   let currentUri = window.location.hash || false;
+//   if (currentUri !== false) {
+//     currentUri = currentUri.substring(1);
+//   }
+//   routes[currentUri || 'about']();
+// };
 
 window.addEventListener('load', handleRouting);
 window.addEventListener('hashchange', handleRouting);
 
-// let getDataFromApi = function(endpoint) {
-//   // let baseUrl = 'https://api.openweathermap.org/data/2.5/';
-//   let baseUrl = 'https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/';
-//   let key = '&appid=cbdd233385e363394315c521d7b568d9'
-//   let city = '?q=Tbilisi'
-//   let units = '&units=metric'
 
-//   return fetch(baseUrl + endpoint + city + units + key)
-//     .then((response) => {
-//       return response;
-//     })
-//     .then(response => response.json());
-// };
+function searchCity() {
+  var city = document.forms["myForm"]["ftext"].value;
+  var unit = document.forms["myForm"]["funits"].value;
+  window.location.href = '#current/' + unit + '/' + city;
+  return true
+}
 
 
 function callCurrentWeatherAPI(city, unit){
