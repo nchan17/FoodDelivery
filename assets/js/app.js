@@ -298,7 +298,7 @@ function callCurrentWeatherAPI(city, unit){
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       var myArr = JSON.parse(this.responseText);
-      loadCurrentWeather(myArr, unit);
+      loadCurrentWeather(myArr, unit||baseUnit);
     }
   };
 }
@@ -315,7 +315,7 @@ function callForecastAPI(city, unit){
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       var myArr = JSON.parse(this.responseText);
-      loadForecast(myArr, unit);
+      loadForecast(myArr, unit||baseUnit);
     }
   };
 }
